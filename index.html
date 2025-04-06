@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JH Cloud Premium Access</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #5a75f5;
+            --primary-dark: #3a56d4;
+            --success: #4cc9f0;
+            --success-dark: #3ab7d9;
+            --error: #f72585;
+            --warning: #ffbe0b;
+            --light-bg: #f8f9fa;
+            --text-dark: #212529;
+            --text-light: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fb 0%, #e6f0ff 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            position: relative;
+            transform: translateY(0);
+            opacity: 1;
+            transition: var(--transition);
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .form-content {
+            padding: 30px;
+        }
+        
+        .order-id {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            color: var(--primary);
+            padding: 12px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.2); }
+            70% { box-shadow: 0 0 0 10px rgba(67, 97, 238, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0); }
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group.required label::after {
+            content: ' *';
+            color: var(--error);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e9ecef;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .form-control.error {
+            border-color: var(--error);
+        }
+        
+        .error-message {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: var(--border-radius);
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .loading {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 10;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: var(--border-radius);
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(67, 97, 238, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .popup-content {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .popup h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .popup p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        .popup .btn {
+            margin-top: 25px;
+        }
+        
+        .plan-options {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 5px;
+        }
+        
+        .plan-option {
+            display: flex;
+            align-items: center;
+            padding: 18px;
+            border: 1px solid #e9ecef;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plan-option.active {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.1);
+        }
+        
+        .plan-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .plan-details {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .plan-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1.05rem;
+        }
+        
+        .plan-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .plan-features {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+        
+        .special-offer {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--warning);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transform: rotate(5deg);
+            animation: pulse 2s infinite;
+        }
+        
+        .special-plan {
+            border: 2px solid var(--warning);
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .payment-method {
+            border: 1px solid #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .payment-method:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.2);
+        }
+        
+        .payment-method.active {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.2);
+            position: relative;
+        }
+        
+        .payment-method.active::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .payment-method img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .payment-method:hover img {
+            transform: scale(1.1);
+        }
+        
+        .payment-method-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            max-width: 90%;
+            text-align: center;
+        }
+        
+        .notification.error {
+            background: var(--error);
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .payment-details {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--primary);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .payment-details h4 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .payment-details ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+        
+        .payment-details ul li {
+            margin-bottom: 10px;
+        }
+        
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 10px;
+            margin-left: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .copy-btn i {
+            margin-right: 5px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 480px) {
+            .payment-methods {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .payment-method {
+                padding: 15px;
+            }
+            
+            .payment-method img {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .payment-method-name {
+                font-size: 0.9rem;
+            }
+            
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .form-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h2>JH Cloud System</h2>
+            <h3>Premium Access Payment Verify!</h3>
+            <p>Complete your payment verification</p>
+        </div>
+        
+        <div class="form-content">
+            <!-- Order ID -->
+            <div class="order-id" id="order-id">
+                <i class="fas fa-receipt"></i> Order ID will generate automatically
+            </div>
+            
+            <!-- Name -->
+            <div class="form-group required">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" class="form-control" placeholder="Enter your full name">
+                <div class="error-message" id="name-error">Please enter your name</div>
+            </div>
+            
+            <!-- Cloud Username -->
+            <div class="form-group required">
+                <label for="cloud-username">JH Cloud System login Username</label>
+                <input type="text" id="cloud-username" class="form-control" placeholder="Enter your JH Cloud System login username">
+                <div class="error-message" id="username-error">Please enter your username</div>
+            </div>
+            
+            <!-- Mobile Number -->
+            <div class="form-group required">
+                <label for="mobile-number">Mobile Number</label>
+                <input type="tel" id="mobile-number" class="form-control" placeholder="01XXXXXXXXX">
+                <div class="error-message" id="mobile-error">Please enter a valid 11-digit mobile number</div>
+            </div>
+            
+            <!-- Subscription Plan -->
+            <div class="form-group required">
+                <label>Subscription Plan</label>
+                <div class="plan-options">
+                    <div class="plan-option" data-plan="basic">
+                        <div class="plan-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="plan-details">
+                            <div class="plan-name">Premium</div>
+                            <div class="plan-price">30 BDT/03 month</div>
+                            <div class="plan-features">Premium Access •12/7 Support• 500 Image Upload </div>
+                        </div>
+                    </div>
+                    <div class="plan-option special-plan" data-plan="special">
+                        <div class="special-offer">SPECIAL OFFER</div>
+                        <div class="plan-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="plan-details">
+                            <div class="plan-name">Premium Silver</div>
+                            <div class="plan-price">50 BDT/06 month</div>
+                            <div class="plan-features">Premium Access •12/7 Support• 800 Image Upload </div>
+                        </div>
+                    </div>
+                    <div class="plan-option" data-plan="advanced">
+                        <div class="plan-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <div class="plan-details">
+                            <div class="plan-name">Premium Gold</div>
+                            <div class="plan-price">100 BDT/01 year</div>
+                            <div class="plan-features">Premium Access •12/7 Support• Unlimited Image Upload </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="error-message" id="plan-error">Please select a subscription plan</div>
+            </div>
+            
+            <!-- Payment Method -->
+            <div class="form-group required">
+                <label for="payment-method">Payment Method</label>
+                <div class="payment-methods">
+                    <div class="payment-method" data-method="Bkash">
+                        <img src="https://i.postimg.cc/hjN8VPd6/BKash-Logo-3000x1231.png" alt="Bkash">
+                        <div class="payment-method-name">Bkash</div>
+                    </div>
+                    <div class="payment-method" data-method="Nagad">
+                        <img src="https://i.postimg.cc/Kz1rKgRt/svg.png" alt="Nagad">
+                        <div class="payment-method-name">Nagad</div>
+                    </div>
+                    <div class="payment-method" data-method="Rocket">
+                        <img src="https://i.postimg.cc/TP7JYcYR/Rocket-mobile-banking-logo-svg.png" alt="Rocket">
+                        <div class="payment-method-name">Rocket</div>
+                    </div>
+                </div>
+                <div class="error-message" id="payment-error">Please select a payment method</div>
+            </div>
+            
+            <!-- Payment Method Details -->
+            <div class="payment-details" id="payment-details" style="display: none;">
+                <h4>Payment Instructions</h4>
+                <div id="payment-instructions"></div>
+            </div>
+            
+            <!-- Payment Transaction ID -->
+            <div class="form-group required">
+                <label for="payment-tx-id">Transaction ID</label>
+                <input type="text" id="payment-tx-id" class="form-control" placeholder="Enter your payment transaction ID">
+                <div class="error-message" id="transaction-error">Please enter your transaction ID</div>
+            </div>
+            
+            <!-- Verify Button -->
+            <button class="btn" id="verify-payment">
+                <i class="fas fa-check-circle"></i> Verify Payment
+            </button>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <div>Verifying your payment...</div>
+        </div>
+    </div>
+    
+    <!-- Success Popup -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <div style="font-size: 60px; color: var(--success); margin-bottom: 15px;">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Payment Verified!</h3>
+            <div id="popup-order-id" style="font-weight: 600; margin-bottom: 15px; color: var(--primary);"></div>
+            <p>Your payment has been successfully verified and your account is being activated.</p>
+            <p>You will receive your access credentials shortly via SMS and email.</p>
+            <button class="btn" id="close-popup">
+                <i class="fas fa-rocket"></i> Continue to Dashboard
+            </button>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span id="notificationMessage"></span>
+    </div>
+
+    <script>
+        // Telegram configuration
+        const TELEGRAM_BOT_TOKEN = '8021358665:AAGRN-69sF6YCQdIfSUQVUT64_MwjhxvBdY';
+        const TELEGRAM_CHAT_ID = '6639167178';
+        
+        // State management
+        const state = {
+            orderId: '',
+            selectedPlan: null,
+            selectedPayment: null
+        };
+        
+        // DOM Elements
+        const mobileField = document.getElementById('mobile-number');
+        const orderIdDiv = document.getElementById('order-id');
+        const verifyBtn = document.getElementById('verify-payment');
+        const loading = document.getElementById('loading');
+        const popup = document.getElementById('popup');
+        const popupOrderId = document.getElementById('popup-order-id');
+        const closePopup = document.getElementById('close-popup');
+        const notification = document.getElementById('notification');
+        const notificationMessage = document.getElementById('notificationMessage');
+        
+        // Form fields
+        const fields = {
+            name: document.getElementById('name'),
+            username: document.getElementById('cloud-username'),
+            mobile: document.getElementById('mobile-number'),
+            transaction: document.getElementById('payment-tx-id')
+        };
+        
+        // Error messages
+        const errors = {
+            name: document.getElementById('name-error'),
+            username: document.getElementById('username-error'),
+            mobile: document.getElementById('mobile-error'),
+            payment: document.getElementById('payment-error'),
+            plan: document.getElementById('plan-error'),
+            transaction: document.getElementById('transaction-error')
+        };
+        
+        // Plan data
+        const plans = {
+            basic: { name: "Premium", price: 30 },
+            special: { name: "Premium Silver", price: 50 },
+            advanced: { name: "Premium Gold", price: 100 }
+        };
+        
+        // Payment methods
+        const paymentMethods = {
+            Bkash: { 
+                number: "01719563112",
+                instructions: `
+                    <ul>
+                        <li>আপনার bKash মোবাইল অ্যাপে যান।</li>
+                        <li>Send Money -এ ক্লিক করুন।</li>
+                        <li>প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন: <strong>01719563112</strong> <button class="copy-btn" data-copy="01719563112"><i class="fas fa-copy"></i> কপি</button></li>
+                        <li>টাকার পরিমাণ: <strong id="payment-amount">30 BDT</strong></li>
+                        <li>নিশ্চিত করতে এখন আপনার bKash পিন লিখুন।</li>
+                        <li>এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের Verify বাটনে ক্লিক করুন।</li>
+                    </ul>
+                `
+            },
+            Nagad: { 
+                number: "01781993264",
+                instructions: `
+                    <ul>
+                        <li>আপনার Nagad মোবাইল অ্যাপে যান।</li>
+                        <li>Send Money -এ ক্লিক করুন।</li>
+                        <li>প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন: <strong>01781993264</strong> <button class="copy-btn" data-copy="01781993264"><i class="fas fa-copy"></i> কপি</button></li>
+                        <li>টাকার পরিমাণ: <strong id="payment-amount">30 BDT</strong></li>
+                        <li>নিশ্চিত করতে এখন আপনার Nagad পিন লিখুন।</li>
+                        <li>এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের Verify বাটনে ক্লিক করুন।</li>
+                    </ul>
+                `
+            },
+            Rocket: { 
+                number: "01719563112",
+                instructions: `
+                    <ul>
+                        <li>আপনার Rocket মোবাইল অ্যাপে যান।</li>
+                        <li>Send Money -এ ক্লিক করুন।</li>
+                        <li>প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন: <strong>01719563112</strong> <button class="copy-btn" data-copy="01719563112"><i class="fas fa-copy"></i> কপি</button></li>
+                        <li>টাকার পরিমাণ: <strong id="payment-amount">30 BDT</strong></li>
+                        <li>নিশ্চিত করতে এখন আপনার Rocket পিন লিখুন।</li>
+                        <li>এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের Verify বাটনে ক্লিক করুন।</li>
+                    </ul>
+                `
+            }
+        };
+        
+        // Initialize the app
+        function init() {
+            setupEventListeners();
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Generate Order ID from mobile number
+            mobileField.addEventListener('input', generateOrderId);
+            
+            // Plan selection
+            document.querySelectorAll('.plan-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectPlan(this.dataset.plan);
+                });
+            });
+            
+            // Payment method selection
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    selectPaymentMethod(this.dataset.method);
+                });
+            });
+            
+            // Form submission
+            verifyBtn.addEventListener('click', verifyPayment);
+            
+            // Close popup
+            closePopup.addEventListener('click', () => {
+                window.open("https://sites.google.com/view/jhcloudsystem", "_blank");
+            });
+        }
+        
+        // Generate Order ID from mobile number
+        function generateOrderId() {
+            const mobileValue = mobileField.value.replace(/\D/g, '');
+            if (mobileValue.length === 11) {
+                state.orderId = '#JH' + mobileValue.substring(0, 3) + '' + mobileValue.substring(8);
+                orderIdDiv.innerHTML = `<i class="fas fa-receipt"></i> Order ID: ${state.orderId}`;
+                orderIdDiv.style.animation = "none";
+                void orderIdDiv.offsetWidth; // Trigger reflow
+                orderIdDiv.style.animation = "pulse 2s infinite";
+            } else {
+                state.orderId = '';
+                orderIdDiv.innerHTML = `<i class="fas fa-receipt"></i> Order ID will generate automatically`;
+                orderIdDiv.style.animation = "none";
+            }
+        }
+        
+        // Select a plan
+        function selectPlan(planId) {
+            state.selectedPlan = plans[planId];
+            
+            // Update UI
+            document.querySelectorAll('.plan-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelector(`.plan-option[data-plan="${planId}"]`).classList.add('active');
+            
+            // Hide error if shown
+            errors.plan.style.display = 'none';
+            
+            // Reset payment method selection if any
+            state.selectedPayment = null;
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById('payment-details').style.display = 'none';
+        }
+        
+        // Select payment method
+        function selectPaymentMethod(method) {
+            // Check if a plan is selected first
+            if (!state.selectedPlan) {
+                showNotification('Please select a subscription plan first!', true);
+                return;
+            }
+            
+            state.selectedPayment = method;
+            
+            // Update UI
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelector(`.payment-method[data-method="${method}"]`).classList.add('active');
+            
+            // Hide error if shown
+            errors.payment.style.display = 'none';
+            
+            // Show payment instructions
+            const paymentDetails = document.getElementById('payment-details');
+            const paymentInstructions = document.getElementById('payment-instructions');
+            paymentDetails.style.display = 'block';
+            paymentInstructions.innerHTML = paymentMethods[method].instructions;
+            
+            // Update amount based on selected plan
+            const amountElement = paymentInstructions.querySelector('#payment-amount');
+            if (amountElement) {
+                amountElement.textContent = `${state.selectedPlan.price} BDT`;
+            }
+            
+            // Add copy functionality to the copy button
+            const copyBtn = paymentInstructions.querySelector('.copy-btn');
+            copyBtn.addEventListener('click', function() {
+                const textToCopy = this.getAttribute('data-copy');
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showNotification('Number copied to clipboard!');
+                }).catch(err => {
+                    showNotification('Failed to copy number.', true);
+                    console.error('Copy failed:', err);
+                });
+            });
+        }
+        
+        // Show notification
+        function showNotification(message, isError = false) {
+            notification.className = isError ? 'notification error' : 'notification';
+            notificationMessage.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Validate form fields
+        function validateForm() {
+            let isValid = true;
+            
+            // Validate name
+            if (fields.name.value.trim() === '') {
+                errors.name.style.display = 'block';
+                isValid = false;
+            } else {
+                errors.name.style.display = 'none';
+            }
+            
+            // Validate username
+            if (fields.username.value.trim() === '') {
+                errors.username.style.display = 'block';
+                isValid = false;
+            } else {
+                errors.username.style.display = 'none';
+            }
+            
+            // Validate mobile
+            const mobileValue = fields.mobile.value.replace(/\D/g, '');
+            if (mobileValue.length !== 11) {
+                errors.mobile.style.display = 'block';
+                isValid = false;
+            } else {
+                errors.mobile.style.display = 'none';
+            }
+            
+            // Validate plan
+            if (!state.selectedPlan) {
+                errors.plan.style.display = 'block';
+                isValid = false;
+            } else {
+                errors.plan.style.display = 'none';
+            }
+            
+            // Validate payment method
+            if (!state.selectedPayment) {
+                errors.payment.style.display = 'block';
+                isValid = false;
+            } else {
+                errors.payment.style.display = 'none';
+            }
+            
+            // Validate transaction ID
+            if (fields.transaction.value.trim() === '') {
+                errors.transaction.style.display = 'block';
+                isValid = false;
+            } else {
+                errors.transaction.style.display = 'none';
+            }
+            
+            return isValid;
+        }
+        
+        // Verify payment
+        function verifyPayment() {
+            if (!validateForm()) {
+                showNotification('Please fill all required fields correctly', true);
+                return;
+            }
+            
+            // Generate order ID if not already generated
+            if (!state.orderId) {
+                generateOrderId();
+                if (!state.orderId) {
+                    showNotification('Please enter a valid mobile number', true);
+                    return;
+                }
+            }
+            
+            // Show loading
+            loading.style.display = 'flex';
+            
+            // Prepare data for submission
+            const paymentData = {
+                orderId: state.orderId,
+                name: fields.name.value.trim(),
+                username: fields.username.value.trim(),
+                mobile: fields.mobile.value.trim(),
+                paymentMethod: state.selectedPayment,
+                plan: state.selectedPlan.name,
+                amount: state.selectedPlan.price,
+                transactionId: fields.transaction.value.trim(),
+                timestamp: new Date().toISOString()
+            };
+            
+            // Send to Telegram
+            sendToTelegram(paymentData)
+                .then(() => {
+                    // Hide loading
+                    loading.style.display = 'none';
+                    
+                    // Show success popup
+                    popupOrderId.textContent = `Order ID: ${state.orderId}`;
+                    popup.style.display = 'flex';
+                    
+                    // Log the data that was sent
+                    console.log('Payment data sent to Telegram:', paymentData);
+                })
+                .catch(error => {
+                    console.error('Error sending to Telegram:', error);
+                    loading.style.display = 'none';
+                    showNotification('Failed to verify payment. Please try again.', true);
+                });
+        }
+        
+        // Function to send data to Telegram
+        async function sendToTelegram(data) {
+            const message = `
+                🚀 *New Payment Verification* 🚀
+                --------------------------
+                📋 *Order ID*: ${data.orderId}
+                👤 *Name*: ${data.name}
+                ☁️ *Username*: ${data.username}
+                📱 *Mobile*: ${data.mobile}
+                💳 *Payment Method*: ${data.paymentMethod}
+                📦 *Plan*: ${data.plan} (${data.amount} BDT)
+                🔢 *Transaction ID*: ${data.transactionId}
+                ⏰ *Time*: ${new Date().toLocaleString()}
+            `;
+            
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Telegram API error');
+            }
+            
+            return response.json();
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
