@@ -15,11 +15,11 @@
             --success-dark: #3ab7d9;
             --error: #f72585;
             --warning: #ffbe0b;
-            --light-bg: #f8f9fa;
-            --text-dark: #212529;
+            --light-bg: #ffffff;
+            --text-dark: #2b2b2b;
             --text-light: #6c757d;
-            --border-radius: 12px;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
@@ -31,7 +31,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fb 0%, #e6f0ff 100%);
+            background: #f9fafc;
             color: var(--text-dark);
             line-height: 1.6;
             min-height: 100vh;
@@ -52,21 +52,35 @@
             transform: translateY(0);
             opacity: 1;
             transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .form-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
+            background: white;
+            color: var(--text-dark);
             padding: 30px 25px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .form-header h2 {
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .form-header h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .form-header p {
+            color: var(--text-light);
+            font-size: 0.9rem;
         }
         
         .form-content {
@@ -80,16 +94,10 @@
             font-size: 1.1rem;
             color: var(--primary);
             padding: 12px;
-            background: rgba(67, 97, 238, 0.1);
+            background: rgba(67, 97, 238, 0.05);
             border-radius: var(--border-radius);
             transition: var(--transition);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.2); }
-            70% { box-shadow: 0 0 0 10px rgba(67, 97, 238, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0); }
+            border: 1px dashed rgba(67, 97, 238, 0.3);
         }
         
         .form-group {
@@ -102,6 +110,7 @@
             font-weight: 500;
             margin-bottom: 8px;
             font-size: 0.95rem;
+            color: var(--text-dark);
         }
         
         .form-group.required label::after {
@@ -111,17 +120,19 @@
         
         .form-control {
             width: 100%;
-            padding: 14px 16px;
+            padding: 12px 16px;
             border: 1px solid #e9ecef;
             border-radius: var(--border-radius);
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: var(--transition);
+            background: white;
+            color: var(--text-dark);
         }
         
         .form-control:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
         }
         
         .form-control.error {
@@ -133,13 +144,6 @@
             font-size: 0.8rem;
             margin-top: 5px;
             display: none;
-            animation: shake 0.5s;
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-5px); }
-            40%, 80% { transform: translateX(5px); }
         }
         
         .btn {
@@ -147,7 +151,7 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border: none;
             border-radius: var(--border-radius);
             background: var(--primary);
@@ -163,8 +167,7 @@
         
         .btn:hover {
             background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.2);
         }
         
         .btn i {
@@ -187,9 +190,9 @@
         }
         
         .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(67, 97, 238, 0.2);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(67, 97, 238, 0.2);
             border-radius: 50%;
             border-top-color: var(--primary);
             animation: spin 1s linear infinite;
@@ -212,7 +215,6 @@
             align-items: center;
             z-index: 100;
             padding: 20px;
-            backdrop-filter: blur(5px);
         }
         
         .popup-content {
@@ -223,17 +225,11 @@
             width: 100%;
             text-align: center;
             position: relative;
-            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        @keyframes popIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
         
         .popup h3 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--primary);
             margin-bottom: 15px;
         }
@@ -242,6 +238,7 @@
             margin-bottom: 20px;
             color: var(--text-light);
             line-height: 1.7;
+            font-size: 0.95rem;
         }
         
         .popup .btn {
@@ -257,31 +254,29 @@
         .plan-option {
             display: flex;
             align-items: center;
-            padding: 18px;
+            padding: 15px;
             border: 1px solid #e9ecef;
             border-radius: var(--border-radius);
             cursor: pointer;
             transition: var(--transition);
             position: relative;
-            overflow: hidden;
+            background: white;
         }
         
         .plan-option:hover {
             border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .plan-option.active {
             border-color: var(--primary);
             background: rgba(67, 97, 238, 0.05);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.1);
         }
         
         .plan-icon {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             background: rgba(67, 97, 238, 0.1);
             border-radius: 50%;
             display: flex;
@@ -289,7 +284,7 @@
             justify-content: center;
             margin-right: 15px;
             color: var(--primary);
-            font-size: 1.2rem;
+            font-size: 1rem;
             flex-shrink: 0;
         }
         
@@ -301,19 +296,14 @@
         .plan-name {
             font-weight: 600;
             margin-bottom: 5px;
-            font-size: 1.05rem;
+            font-size: 1rem;
+            color: var(--text-dark);
         }
         
         .plan-price {
             color: var(--primary);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        
-        .plan-features {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-top: 5px;
+            font-weight: 600;
+            font-size: 1rem;
         }
         
         .special-offer {
@@ -322,29 +312,27 @@
             right: 10px;
             background: var(--warning);
             color: #000;
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            transform: rotate(5deg);
-            animation: pulse 2s infinite;
         }
         
         .special-plan {
-            border: 2px solid var(--warning);
+            border: 1px solid var(--warning);
         }
         
         .payment-methods {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            gap: 12px;
             margin: 20px 0;
         }
         
         .payment-method {
             border: 1px solid #e9ecef;
             border-radius: var(--border-radius);
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
@@ -352,56 +340,29 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            background: white;
         }
         
         .payment-method:hover {
             border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.1);
         }
         
         .payment-method.active {
             border-color: var(--primary);
-            background: rgba(67, 97, 238, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.2);
-            position: relative;
-        }
-        
-        .payment-method.active::after {
-            content: '\f00c';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 24px;
-            height: 24px;
-            background: var(--success);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
+            background: rgba(67, 97, 238, 0.05);
         }
         
         .payment-method img {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
-            margin-bottom: 12px;
-            transition: transform 0.3s ease;
-        }
-        
-        .payment-method:hover img {
-            transform: scale(1.1);
+            margin-bottom: 10px;
         }
         
         .payment-method-name {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-dark);
         }
@@ -415,13 +376,14 @@
             color: white;
             padding: 12px 20px;
             border-radius: var(--border-radius);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
+            transition: opacity 0.3s;
             pointer-events: none;
             max-width: 90%;
             text-align: center;
+            font-size: 0.9rem;
         }
         
         .notification.error {
@@ -430,46 +392,54 @@
         
         .notification.show {
             opacity: 1;
-            transform: translateX(-50%) translateY(0);
         }
         
         .payment-details {
             margin-top: 20px;
             padding: 20px;
-            background: rgba(67, 97, 238, 0.05);
+            background: rgba(67, 97, 238, 0.03);
             border-radius: var(--border-radius);
-            border: 1px solid var(--primary);
-            animation: fadeIn 0.5s ease;
+            border: 1px solid rgba(67, 97, 238, 0.1);
         }
         
         .payment-details h4 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--primary);
             margin-bottom: 15px;
         }
         
         .payment-details ul {
-            list-style-type: disc;
-            padding-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
             color: var(--text-dark);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         
         .payment-details ul li {
             margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .payment-details ul li:before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
         }
         
         .copy-btn {
             display: inline-flex;
             align-items: center;
-            padding: 5px 10px;
-            margin-left: 10px;
+            padding: 4px 8px;
+            margin-left: 8px;
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             transition: var(--transition);
         }
         
@@ -479,11 +449,7 @@
         
         .copy-btn i {
             margin-right: 5px;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            font-size: 0.7rem;
         }
         
         @media (max-width: 480px) {
@@ -493,16 +459,12 @@
             }
             
             .payment-method {
-                padding: 15px;
+                padding: 12px;
             }
             
             .payment-method img {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .payment-method-name {
-                font-size: 0.9rem;
+                width: 40px;
+                height: 40px;
             }
             
             .form-header h2 {
@@ -519,7 +481,7 @@
     <div class="form-container">
         <div class="form-header">
             <h2>JH Cloud System</h2>
-            <h3>Premium Access Payment Verify!</h3>
+            <h3>Premium Access Payment Verify</h3>
             <p>Complete your payment verification</p>
         </div>
         
@@ -538,8 +500,8 @@
             
             <!-- Cloud Username -->
             <div class="form-group required">
-                <label for="cloud-username">JH Cloud System login Username</label>
-                <input type="text" id="cloud-username" class="form-control" placeholder="Enter your JH Cloud System login username">
+                <label for="cloud-username">JH Cloud Username</label>
+                <input type="text" id="cloud-username" class="form-control" placeholder="Enter your JH Cloud username">
                 <div class="error-message" id="username-error">Please enter your username</div>
             </div>
             
@@ -561,18 +523,16 @@
                         <div class="plan-details">
                             <div class="plan-name">Premium</div>
                             <div class="plan-price">30 BDT/03 month</div>
-                            <div class="plan-features">Premium Access •12/7 Support• 500 Image Upload </div>
                         </div>
                     </div>
                     <div class="plan-option special-plan" data-plan="special">
-                        <div class="special-offer">SPECIAL OFFER</div>
+                        <div class="special-offer">SPECIAL</div>
                         <div class="plan-icon">
                             <i class="fas fa-star"></i>
                         </div>
                         <div class="plan-details">
                             <div class="plan-name">Premium Silver</div>
                             <div class="plan-price">50 BDT/06 month</div>
-                            <div class="plan-features">Premium Access •12/7 Support• 800 Image Upload </div>
                         </div>
                     </div>
                     <div class="plan-option" data-plan="advanced">
@@ -582,7 +542,6 @@
                         <div class="plan-details">
                             <div class="plan-name">Premium Gold</div>
                             <div class="plan-price">100 BDT/01 year</div>
-                            <div class="plan-features">Premium Access •12/7 Support• Unlimited Image Upload </div>
                         </div>
                     </div>
                 </div>
@@ -637,14 +596,13 @@
     <!-- Success Popup -->
     <div class="popup" id="popup">
         <div class="popup-content">
-            <div style="font-size: 60px; color: var(--success); margin-bottom: 15px;">
+            <div style="font-size: 50px; color: var(--success); margin-bottom: 15px;">
                 <i class="fas fa-check-circle"></i>
             </div>
             <h3>Payment Verified!</h3>
             <div id="popup-order-id" style="font-weight: 600; margin-bottom: 15px; color: var(--primary);"></div>
             <p>Your order has been successfully received.</p>
             <p>If the transaction ID is correct, your plan will be activated within 5 minutes to 5 hours.</p>
-             <pYou will receive a confirmation message via WhatsApp or email at your mobile number.</p>
             <button class="btn" id="close-popup">
                 <i class="fas fa-rocket"></i> Continue to Dashboard
             </button>
@@ -710,12 +668,12 @@
                 number: "01719563112",
                 instructions: `
                     <ul>
-                        <li>আপনার bKash মোবাইল অ্যাপে যান।</li>
-                        <li>Send Money -এ ক্লিক করুন।</li>
-                        <li>প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন: <strong>01719563112</strong> <button class="copy-btn" data-copy="01719563112"><i class="fas fa-copy"></i> কপি</button></li>
-                        <li>টাকার পরিমাণ: <strong id="payment-amount">30 BDT</strong></li>
-                        <li>নিশ্চিত করতে এখন আপনার bKash পিন লিখুন।</li>
-                        <li>এখন নিচের বক্সে আপনার Transaction ID দিন এবং নিচের Verify Payment বাটনে ক্লিক করুন।</li>
+                        <li>Go to your bKash mobile app</li>
+                        <li>Click on "Send Money"</li>
+                        <li>Enter this number as recipient: <strong>01719563112</strong> <button class="copy-btn" data-copy="01719563112"><i class="fas fa-copy"></i> Copy</button></li>
+                        <li>Amount: <strong id="payment-amount">30 BDT</strong></li>
+                        <li>Enter your bKash PIN to confirm</li>
+                        <li>Enter the Transaction ID below and click Verify Payment</li>
                     </ul>
                 `
             },
@@ -723,12 +681,12 @@
                 number: "01781993264",
                 instructions: `
                     <ul>
-                        <li>আপনার Nagad মোবাইল অ্যাপে যান।</li>
-                        <li>Send Money -এ ক্লিক করুন।</li>
-                        <li>প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন: <strong>01781993264</strong> <button class="copy-btn" data-copy="01781993264"><i class="fas fa-copy"></i> কপি</button></li>
-                        <li>টাকার পরিমাণ: <strong id="payment-amount">30 BDT</strong></li>
-                        <li>নিশ্চিত করতে এখন আপনার Nagad পিন লিখুন।</li>
-                        <li>এখন নিচের বক্সে আপনার Transaction ID দিন এবং নিচের Verify Payment বাটনে ক্লিক করুন।</li>
+                        <li>Go to your Nagad mobile app</li>
+                        <li>Click on "Send Money"</li>
+                        <li>Enter this number as recipient: <strong>01781993264</strong> <button class="copy-btn" data-copy="01781993264"><i class="fas fa-copy"></i> Copy</button></li>
+                        <li>Amount: <strong id="payment-amount">30 BDT</strong></li>
+                        <li>Enter your Nagad PIN to confirm</li>
+                        <li>Enter the Transaction ID below and click Verify Payment</li>
                     </ul>
                 `
             },
@@ -736,12 +694,12 @@
                 number: "01719563112",
                 instructions: `
                     <ul>
-                        <li>আপনার Rocket মোবাইল অ্যাপে যান।</li>
-                        <li>Send Money -এ ক্লিক করুন।</li>
-                        <li>প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন: <strong>01719563112</strong> <button class="copy-btn" data-copy="01719563112"><i class="fas fa-copy"></i> কপি</button></li>
-                        <li>টাকার পরিমাণ: <strong id="payment-amount">30 BDT</strong></li>
-                        <li>নিশ্চিত করতে এখন আপনার Rocket পিন লিখুন।</li>
-                        <li>এখন নিচের বক্সে আপনার Transaction ID দিন এবং নিচের Verify Payment বাটনে ক্লিক করুন।</li>
+                        <li>Go to your Rocket mobile app</li>
+                        <li>Click on "Send Money"</li>
+                        <li>Enter this number as recipient: <strong>01719563112</strong> <button class="copy-btn" data-copy="01719563112"><i class="fas fa-copy"></i> Copy</button></li>
+                        <li>Amount: <strong id="payment-amount">30 BDT</strong></li>
+                        <li>Enter your Rocket PIN to confirm</li>
+                        <li>Enter the Transaction ID below and click Verify Payment</li>
                     </ul>
                 `
             }
@@ -786,13 +744,9 @@
             if (mobileValue.length === 11) {
                 state.orderId = '#JH' + mobileValue.substring(0, 3) + '' + mobileValue.substring(8);
                 orderIdDiv.innerHTML = `<i class="fas fa-receipt"></i> Order ID: ${state.orderId}`;
-                orderIdDiv.style.animation = "none";
-                void orderIdDiv.offsetWidth; // Trigger reflow
-                orderIdDiv.style.animation = "pulse 2s infinite";
             } else {
                 state.orderId = '';
                 orderIdDiv.innerHTML = `<i class="fas fa-receipt"></i> Order ID will generate automatically`;
-                orderIdDiv.style.animation = "none";
             }
         }
         
